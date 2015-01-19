@@ -48,3 +48,15 @@ ArrayUtil resize(ArrayUtil util, int length){
 	}
 	return resized;
 }
+
+int findIndex(ArrayUtil util, void* element){
+	int i;
+	int *array=(int *)util.base;
+	int *ele=(int *)element;
+	for (i = 0; i < util.length; ++i){
+		if(array[i]==*ele){
+			return i;
+		}
+	}
+	return -1;
+}

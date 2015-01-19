@@ -96,3 +96,23 @@ void test_if_new_length_is_greter_than_old_length_in_resized_array_extra_element
 	assertEqual(((int *)resized.base)[4], 0);
 	free(resized.base);
 }
+
+void test_findindex_returns_index_when_element_is_present(){
+	ArrayUtil util;
+	int array[]={1,2,3,4,5,6};
+	int x=5;
+	util.base=array;
+	util.typeSize=sizeof(int);
+	util.length=6;
+	assertEqual(findIndex(util,&x), 4);
+}
+
+void test_findindex_returns_minus_one_when_element_is_not_present(){
+	ArrayUtil util;
+	int array[]={1,2,3,4,5,6};
+	int x=9;
+	util.base=array;
+	util.typeSize=sizeof(int);
+	util.length=6;
+	assertEqual(findIndex(util,&x), -1);
+}
