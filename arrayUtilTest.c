@@ -42,3 +42,23 @@ void test_areEqual_returns_0_when_length_is_equal_but_typeSize_is_not_equal(){
 	a2.length=5;
 	assertEqual(areEqual(a1,a2), 0);
 }
+
+void test_create_creates_a_given_length_array_of_5_elements_when_given_length_is_5(){
+	ArrayUtil arr=create(sizeof(int),5);
+	assertEqual(arr.typeSize, sizeof(int));
+	assertEqual(arr.length, 5);
+	assertEqual(((int *)arr.base)[0], 0);
+	assertEqual(((int *)arr.base)[1], 0);
+	assertEqual(((int *)arr.base)[2], 0);
+	assertEqual(((int *)arr.base)[3], 0);
+	assertEqual(((int *)arr.base)[4], 0);
+}
+
+void test_create_creates_a_given_length_array_of_3_elements_when_given_length_is_3(){
+	ArrayUtil arr=create(sizeof(int),3);
+	assertEqual(arr.typeSize, sizeof(int));
+	assertEqual(arr.length, 3);
+	assertEqual(((int *)arr.base)[0], 0);
+	assertEqual(((int *)arr.base)[1], 0);
+	assertEqual(((int *)arr.base)[2], 0);
+}

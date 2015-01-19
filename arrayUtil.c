@@ -20,3 +20,15 @@ int areEqual(ArrayUtil a1,ArrayUtil a2){
 	}
 	return 0;
 }
+
+ArrayUtil create(int typeSize, int length){
+	ArrayUtil arr;
+	int i;
+	arr.base=(int *)malloc(typeSize*length);
+	arr.typeSize=typeSize;
+	arr.length=length;
+	for(i=0;i<length;++i){
+		((int *)arr.base)[i]=0;
+	}
+	return arr;
+}
