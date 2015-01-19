@@ -52,6 +52,7 @@ void test_create_creates_a_given_length_array_of_5_elements_when_given_length_is
 	assertEqual(((int *)arr.base)[2], 0);
 	assertEqual(((int *)arr.base)[3], 0);
 	assertEqual(((int *)arr.base)[4], 0);
+	free(arr.base);
 }
 
 void test_create_creates_a_given_length_array_of_3_elements_when_given_length_is_3(){
@@ -61,4 +62,37 @@ void test_create_creates_a_given_length_array_of_3_elements_when_given_length_is
 	assertEqual(((int *)arr.base)[0], 0);
 	assertEqual(((int *)arr.base)[1], 0);
 	assertEqual(((int *)arr.base)[2], 0);
+	free(arr.base);
+}
+
+void test_if_new_length_is_less_than_old_length_resize_gives_an_array_of_starting_elements_till_given_length(){
+	ArrayUtil util,resized;
+	int array[]={1,2,3,4,5};
+	util.base=array;
+	util.typeSize=sizeof(int);
+	util.length=5;
+	resized=resize(util,3);
+	assertEqual(resized.typeSize, util.typeSize);
+	assertEqual(resized.length, 3);
+	assertEqual(((int *)resized.base)[0], 1);
+	assertEqual(((int *)resized.base)[1], 2);
+	assertEqual(((int *)resized.base)[2], 3);
+	free(resized.base);
+}
+
+void test_if_new_length_is_greter_than_old_length_in_resized_array_extra_elements_of_new_array_should_be_0(){
+	ArrayUtil util,resized;
+	int array[]={1,2,3};
+	util.base=array;
+	util.typeSize=sizeof(int);
+	util.length=3;
+	resized=resize(util,5);
+	assertEqual(resized.typeSize, util.typeSize);
+	assertEqual(resized.length, 5);
+	assertEqual(((int *)resized.base)[0], 1);
+	assertEqual(((int *)resized.base)[1], 2);
+	assertEqual(((int *)resized.base)[2], 3);
+	assertEqual(((int *)resized.base)[3], 0);
+	assertEqual(((int *)resized.base)[4], 0);
+	free(resized.base);
 }

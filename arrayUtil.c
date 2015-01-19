@@ -32,3 +32,19 @@ ArrayUtil create(int typeSize, int length){
 	}
 	return arr;
 }
+
+ArrayUtil resize(ArrayUtil util, int length){
+	ArrayUtil resized;
+	int i;
+	resized.base=(int *)malloc(util.typeSize*length);
+	resized.typeSize=util.typeSize;
+	resized.length=length;
+	for(i=0;i<length;++i){
+		if(i>=util.length){
+			((int *)resized.base)[i]=0;
+		}else{
+			((int *)resized.base)[i]=((int *)util.base)[i];
+		}
+	}
+	return resized;
+}
