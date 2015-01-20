@@ -179,3 +179,27 @@ void test_findLast_returns_0_when_no_element_matches_condition(){
 	result =findLast(util,isEven,&hint);
 	assertEqual((int )result, 0);
 }
+
+void test_count_returns_4_for_1_2_3_4_5_6_7_8_for_isEven(){
+	ArrayUtil util;
+	void *hint;
+	int result;
+	int array[]={1,2,3,4,5,6,7,8};
+	util.base=array;
+	util.length=8;
+	util.typeSize=sizeof(int);
+	result = count(util,isEven,&hint);
+	assertEqual(result, 4);
+}
+
+void test_count_returns_0_for_1_3_5_7_for_isEven(){
+	ArrayUtil util;
+	void *hint;
+	int result;
+	int array[]={1,3,5,7};
+	util.base=array;
+	util.length=4;
+	util.typeSize=sizeof(int);
+	result = count(util,isEven,&hint);
+	assertEqual(result, 0);
+}

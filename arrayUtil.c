@@ -76,7 +76,6 @@ void *findFirst(ArrayUtil util, MatchFunc* match, void* hint){
 			ele[j]=array[(i*util.typeSize)+j];
 		}
 		if(match(hint,ele)){
-			printf("hiiiii%d\n",*(int*)ele );
 			return ele;
 		}
 	}
@@ -96,4 +95,19 @@ void *findLast(ArrayUtil util, MatchFunc* match, void* hint){
 		}
 	}
 	return 0;
+}
+
+int count(ArrayUtil util, MatchFunc* match, void* hint){
+	int i,j,count=0;
+	char *ele=malloc(util.typeSize);
+	char *array=(char *)util.base;
+	for(i=0;i<util.length;++i){
+		for(j=0;j<util.typeSize;++j){
+			ele[j]=array[(i*util.typeSize)+j];
+		}
+		if(match(hint,ele)){
+			++count;
+		}
+	}
+	return count;
 }
