@@ -82,3 +82,18 @@ void *findFirst(ArrayUtil util, MatchFunc* match, void* hint){
 	}
 	return 0;
 }
+
+void *findLast(ArrayUtil util, MatchFunc* match, void* hint){
+	int i,j;
+	char *ele=malloc(util.typeSize);
+	char *array=(char *)util.base;
+	for(i=(util.length-1);i>=0;--i){
+		for(j=(util.typeSize-1);j>=0;--j){
+			ele[j]=array[(i*util.typeSize)+j];
+		}
+		if(match(hint,ele)){
+			return ele;
+		}
+	}
+	return 0;
+}

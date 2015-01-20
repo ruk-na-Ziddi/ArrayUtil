@@ -11,3 +11,4 @@ ArrayUtil create(int typeSize, int length);
 ArrayUtil resize(ArrayUtil util, int length);
 int findIndex(ArrayUtil util, void* element);
 void *findFirst(ArrayUtil util, MatchFunc* match, void* hint);
+void *findLast(ArrayUtil util, MatchFunc* match, void* hint);

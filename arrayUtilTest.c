@@ -155,3 +155,27 @@ void test_findFirst_returns_0_when_no_element_matches_condition(){
 	result =findFirst(util,isEven,&hint);
 	assertEqual((int )result, 0);
 }
+
+void test_findFirst_returns_even_number_from_array_on_last_when_condition_matches(){
+	ArrayUtil util;
+	void *hint;
+	int *result;
+	int array[]={1,2,3,4,5,6,7,8};
+	util.base=array;
+	util.length=8;
+	util.typeSize=sizeof(int);
+	result =(int *)findLast(util,isEven,&hint);
+	assertEqual(*result, 8);
+}
+
+void test_findLast_returns_0_when_no_element_matches_condition(){
+	ArrayUtil util;
+	void *hint;
+	int *result;
+	int array[]={1,3,5,7};
+	util.base=array;
+	util.length=4;
+	util.typeSize=sizeof(int);
+	result =findLast(util,isEven,&hint);
+	assertEqual((int )result, 0);
+}
