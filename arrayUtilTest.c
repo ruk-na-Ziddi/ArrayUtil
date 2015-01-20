@@ -116,3 +116,13 @@ void test_findindex_returns_minus_one_when_element_is_not_present(){
 	util.length=6;
 	assertEqual(findIndex(util,&x), -1);
 }
+
+void test_findindex_returns_index_when_element_is_present_for_character_array(){
+	ArrayUtil util;
+	char array[]={'a','b','c','d','e','f'};
+	int x='c';
+	util.base=array;
+	util.typeSize=sizeof(char);
+	util.length=6;
+	assertEqual(findIndex(util,&x), 2);
+}
