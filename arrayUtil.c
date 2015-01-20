@@ -13,7 +13,7 @@ int areEqual(ArrayUtil a1,ArrayUtil a2){
 	for (i = 0; i < a1.length*a1.typeSize; ++i){
 		if(x[i]==y[i]){
 			++a2_i;
-			if(a2_i==a1.length){
+			if(a2_i==a1.length*a1.typeSize){
 				return 1;
 			}
 		}
@@ -60,7 +60,6 @@ int findIndex(ArrayUtil util, void* element){
 		if(array[i]==ele[ele_i]){
 			++ele_i;
 			if(ele_i==util.typeSize){
-				printf("------------------------------------------%d\n", i);
 				return (i+1)/(util.typeSize)-1;
 			}
 		}
