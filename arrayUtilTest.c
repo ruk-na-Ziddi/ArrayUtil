@@ -3,6 +3,7 @@
 #include "arrayUtil.h"
 #include <string.h>
 #include <stdio.h>
+#include <stddef.h>
 
 void test_areEqual_return_0_when_both_array_lenght_base_and_typesize_are_same(){
 	ArrayUtil a1,a2;
@@ -119,10 +120,38 @@ void test_findindex_returns_minus_one_when_element_is_not_present(){
 
 void test_findindex_returns_index_when_element_is_present_for_character_array(){
 	ArrayUtil util;
-	char array[]={'a','b','c','d','e','f'};
-	int x='c';
+	char array[]={'a','b','c','d','e','f','\0'};
+	char x='c';
 	util.base=array;
 	util.typeSize=sizeof(char);
-	util.length=6;
+	util.length=7;
 	assertEqual(findIndex(util,&x), 2);
+}
+
+int isEven(void *hint,void *item){
+	return *((int*)item)%2==0;
+}
+
+void test_findFirst_returns_even_number_from_array_on_first_when_condition_matches(){
+	ArrayUtil util;
+	void *hint;
+	int *result;
+	int array[]={1,2,3,4,5,6,7,8};
+	util.base=array;
+	util.length=8;
+	util.typeSize=sizeof(int);
+	result =(int *)findFirst(util,isEven,&hint);
+	assertEqual(*result, 2);
+}
+
+void test_findFirst_returns_0_when_no_element_matches_condition(){
+	ArrayUtil util;
+	void *hint;
+	int *result;
+	int array[]={1,3,5,7};
+	util.base=array;
+	util.length=4;
+	util.typeSize=sizeof(int);
+	result =findFirst(util,isEven,&hint);
+	assertEqual((int )result, 0);
 }

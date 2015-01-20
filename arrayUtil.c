@@ -66,3 +66,19 @@ int findIndex(ArrayUtil util, void* element){
 	}
 	return -1;
 }
+
+void *findFirst(ArrayUtil util, MatchFunc* match, void* hint){
+	int i,j;
+	char *ele=malloc(util.typeSize);
+	char *array=(char *)util.base;
+	for(i=0;i<util.length;++i){
+		for(j=0;j<util.typeSize;++j){
+			ele[j]=array[(i*util.typeSize)+j];
+		}
+		if(match(hint,ele)){
+			printf("hiiiii%d\n",*(int*)ele );
+			return ele;
+		}
+	}
+	return 0;
+}
