@@ -79,7 +79,7 @@ void *findFirst(ArrayUtil util, MatchFunc* match, void* hint){
 			return ele;
 		}
 	}
-	return 0;
+	return NULL;
 }
 
 void *findLast(ArrayUtil util, MatchFunc* match, void* hint){
@@ -94,7 +94,7 @@ void *findLast(ArrayUtil util, MatchFunc* match, void* hint){
 			return ele;
 		}
 	}
-	return 0;
+	return NULL;
 }
 
 int count(ArrayUtil util, MatchFunc* match, void* hint){
@@ -129,4 +129,13 @@ int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int
 		}
 	}
 	return count;
+}
+
+void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint){
+	int i,j;
+	char *array=(char *)source.base;
+	char *dest=(char *)destination.base;
+	for (i=0;i<source.length;i++){
+		convert(hint,&(array[(i*source.typeSize)]),&(dest[(i*source.typeSize)]));
+	}
 }

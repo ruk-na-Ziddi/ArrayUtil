@@ -158,7 +158,39 @@ void test_filter_returns_0_when_there_are_no_enven_no_in_existing_array(){
 	int array[]={1,3,5,7};
 	ArrayUtil util={array,INT_SIZE,4};
 	int *filtered=(int *)malloc(sizeof(int)*2);
-	int conter=filter(util,isEven,0,(void**)&filtered,2);
- 	assertEqual(conter,0);
+	int counter=filter(util,isEven,0,(void**)&filtered,2);
+ 	assertEqual(counter,0);
  	free(filtered);
+}
+
+void increment_by_1(void *hint, void *sourceItem, void *destinationItem){
+	*(int*)destinationItem = *(int*)sourceItem+1;
+}
+
+void test_map_increments_by_one_all_array_elements(){
+	void *hint;
+	int array[]={1,2,3,4,5};
+	int newArray[]={2,3,4,5,6};
+	ArrayUtil util={array,INT_SIZE,5};
+	ArrayUtil expected={newArray,INT_SIZE,5};
+	ArrayUtil mapped={calloc(5,INT_SIZE),INT_SIZE,5};
+	map(util,mapped,increment_by_1,&hint);
+	assert(areEqual(expected, mapped));
+	assert(arrayEqual(newArray,expected.base));
+}
+
+void square_elements(void *hint, void *sourceItem, void *destinationItem){
+	*(int*)destinationItem = *(int*)sourceItem * *(int*)sourceItem;
+}
+
+void test_map_returns_square_of_each_element_in_array(){
+	void *hint;
+	int array[]={1,2,3,4,5};
+	int newArray[]={1,4,9,16,25};
+	ArrayUtil util={array,INT_SIZE,5};
+	ArrayUtil expected={newArray,INT_SIZE,5};
+	ArrayUtil mapped={calloc(5,INT_SIZE),INT_SIZE,5};
+	map(util,mapped,square_elements,&hint);
+	assert(areEqual(expected, mapped));
+	assert(arrayEqual(newArray,expected.base));
 }

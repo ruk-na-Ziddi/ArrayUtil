@@ -1,5 +1,6 @@
 typedef struct arrayUtil ArrayUtil;
 typedef int (MatchFunc)(void* hint, void* item);
+typedef void (ConvertFunc)(void* hint, void* sourceItem, void* destinationItem);
 struct arrayUtil {
 	void *base;
 	int typeSize;
@@ -15,3 +16,4 @@ void *findLast(ArrayUtil util, MatchFunc* match, void* hint);
 int count(ArrayUtil util, MatchFunc* match, void* hint);
 int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int maxItems );
 int arrayEqual(void *arr1,void *arr2);
+void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint);
