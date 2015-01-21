@@ -3,6 +3,19 @@
 #include <stdio.h>
 #include "arrayUtil.h"
 
+int arrayEqual(void *arr1,void *arr2){
+	int i;
+	char *array1=(char *)arr1;
+	char *array2=(char *)arr2;
+	int l1=strlen(array1);
+	int l2=strlen(array2);
+	if(l1!=l2){return 0;}
+	for(i=0;i<l1;++i){
+		if(array1[i]!=array2[i]){return 0;}
+	}
+	return 1;
+}
+
 int areEqual(ArrayUtil u1,ArrayUtil u2){
 	int i;
 	char *x=(char *)u1.base;
@@ -93,6 +106,25 @@ int count(ArrayUtil util, MatchFunc* match, void* hint){
 			ele[j]=array[(i*util.typeSize)+j];
 		}
 		if(match(hint,ele)){
+			++count;
+		}
+	}
+	return count;
+}
+
+int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int maxItems ){
+	int i,j,count=0;
+	char *ele=malloc(util.typeSize);
+	char *array=(char *)util.base;
+	for (i=0;i<util.length;i++){
+		if(count==maxItems){
+			return count;
+		}
+		for(j=0;j<util.typeSize;++j){
+			ele[j]=array[(i*util.typeSize)+j];
+		}
+		if(match(hint,ele)){
+			memcpy(&((*destination)[count*util.typeSize]),ele,util.typeSize);
 			++count;
 		}
 	}

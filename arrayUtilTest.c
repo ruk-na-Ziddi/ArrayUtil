@@ -142,3 +142,23 @@ void test_count_returns_0_for_1_3_5_7_when_checked_for_even_no(){
 	int result=count(util,isEven,&hint);
 	assertEqual(result, 0);
 }
+
+void test_filter_fills_filtered_array_with_even_numbers_of_existing_array_and_returns_count(){
+	int array[]={1,2,3,4,5,6,7,8};
+	int newArray[]={2,4,6,8};
+	ArrayUtil util={array,INT_SIZE,8};
+	int *filtered=(int *)malloc(sizeof(int)*5);
+	int conter=filter(util,isEven,0,(void**)&filtered,5);
+ 	assertEqual(conter,4);
+ 	assert(arrayEqual(newArray,filtered));
+ 	free(filtered);
+}
+
+void test_filter_returns_0_when_there_are_no_enven_no_in_existing_array(){
+	int array[]={1,3,5,7};
+	ArrayUtil util={array,INT_SIZE,4};
+	int *filtered=(int *)malloc(sizeof(int)*2);
+	int conter=filter(util,isEven,0,(void**)&filtered,2);
+ 	assertEqual(conter,0);
+ 	free(filtered);
+}
