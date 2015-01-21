@@ -180,7 +180,7 @@ void test_map_increments_by_one_all_array_elements(){
 }
 
 void square_elements(void *hint, void *sourceItem, void *destinationItem){
-	*(int*)destinationItem = *(int*)sourceItem * *(int*)sourceItem;
+	*(int*)destinationItem=*(int*)sourceItem * *(int*)sourceItem;
 }
 
 void test_map_returns_square_of_each_element_in_array(){
@@ -193,4 +193,32 @@ void test_map_returns_square_of_each_element_in_array(){
 	map(util,mapped,square_elements,&hint);
 	assert(areEqual(expected, mapped));
 	assert(arrayEqual(newArray,expected.base));
+}
+
+void element_plus_one(void* hint, void* item){
+	*((int *)item)= *((int *)item) + 1;
+}
+
+void test_forEach_icrements_each_element_by_one(){
+	void *hint;
+	int array[]={1,2,3,4,5};
+	int incremented[]={2,3,4,5,6};
+	ArrayUtil util={array,INT_SIZE,5};
+	ArrayUtil expected={incremented,INT_SIZE,5};
+	forEach(util,element_plus_one,&hint);
+	assert(areEqual(util,expected));
+}
+
+void element_into_element_plus_one(void* hint, void* item){
+	*((int *)item)= *((int *)item) * ((*((int *)item))+1);
+}
+
+void test_forEach_does_multiplication_of_item_with_item_plus_one(){
+	void *hint;
+	int array[]={1,2,3,4,5};
+	int incremented[]={2,6,12,20,30};
+	ArrayUtil util={array,INT_SIZE,5};
+	ArrayUtil expected={incremented,INT_SIZE,5};
+	forEach(util,element_into_element_plus_one,&hint);
+	assert(areEqual(util,expected));
 }

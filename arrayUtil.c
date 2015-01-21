@@ -132,10 +132,18 @@ int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int
 }
 
 void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint){
-	int i,j;
+	int i;
 	char *array=(char *)source.base;
 	char *dest=(char *)destination.base;
 	for (i=0;i<source.length;i++){
-		convert(hint,&(array[(i*source.typeSize)]),&(dest[(i*source.typeSize)]));
+		convert(hint,&(array[i*source.typeSize]),&(dest[i*source.typeSize]));
 	}
+}
+
+void forEach(ArrayUtil util, OperationFunc* operation, void* hint) {
+	int i;
+	char *array=(char *)util.base;
+	for(i=0;i<util.length;i++){
+		operation(hint,&(array[i*util.typeSize]));
+	}	
 }
