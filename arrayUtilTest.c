@@ -222,3 +222,26 @@ void test_forEach_does_multiplication_of_item_with_item_plus_one(){
 	forEach(util,element_into_element_plus_one,&hint);
 	assert(areEqual(util,expected));
 }
+
+void *add_all(void* hint, void* previousItem, void* item){
+	*((int*)item)= *((int*)previousItem) + *((int*)item);
+	return ((int*)item);
+}
+
+void test_reduce_gives_15_when_elements_are_1_2_3_4_5_and_initial_value_is_0(){
+	void *hint;
+	int intialValue=0;
+	int array[]={1,2,3,4,5};
+	ArrayUtil util={array,INT_SIZE,5};
+	void *return_value=reduce(util,add_all,&hint,&intialValue);
+	assertEqual(*((int*)return_value),15);
+}
+
+void test_reduce_gives_30_when_elements_are_1_2_3_4_5_and_initial_value_is_15(){
+	void *hint;
+	int intialValue=15;
+	int array[]={1,2,3,4,5};
+	ArrayUtil util={array,INT_SIZE,5};
+	void *return_value=reduce(util,add_all,&hint,&intialValue);
+	assertEqual(*((int*)return_value),30);
+}
