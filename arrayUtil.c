@@ -1,3 +1,4 @@
+typedef char * CHAR_PTR;
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -5,8 +6,8 @@
 
 int arrayEqual(void *arr1,void *arr2){
 	int i;
-	char *array1=(char *)arr1;
-	char *array2=(char *)arr2;
+	CHAR_PTR array1=(CHAR_PTR)arr1;
+	CHAR_PTR array2=(CHAR_PTR)arr2;
 	int l1=strlen(array1);
 	int l2=strlen(array2);
 	if(l1!=l2){return 0;}
@@ -18,8 +19,8 @@ int arrayEqual(void *arr1,void *arr2){
 
 int areEqual(ArrayUtil u1,ArrayUtil u2){
 	int i;
-	char *x=(char *)u1.base;
-	char *y=(char *)u2.base;
+	CHAR_PTR x=(CHAR_PTR)u1.base;
+	CHAR_PTR y=(CHAR_PTR)u2.base;
 	if(u1.length!=u2.length || u1.typeSize!=u2.typeSize){
 		return 0;
 	}
@@ -39,8 +40,8 @@ ArrayUtil create(int typeSize, int length){
 ArrayUtil resize(ArrayUtil util, int length){
 	ArrayUtil resized={calloc(length,util.typeSize),util.typeSize,length};
 	int i,len;
-	char *array1=(char *)util.base;
-	char *array2=(char *)resized.base;
+	CHAR_PTR array1=(CHAR_PTR)util.base;
+	CHAR_PTR array2=(CHAR_PTR)resized.base;
 	len=(length<util.length)?length:util.length;
 	for(i=0;i<len*util.typeSize;++i){
 		array2[i]=array1[i];
@@ -50,8 +51,8 @@ ArrayUtil resize(ArrayUtil util, int length){
 
 int findIndex(ArrayUtil util, void* element){
 	int i,ele_i=0;
-	char *array=(char *)util.base;
-	char *ele=(char *)element;
+	CHAR_PTR array=(CHAR_PTR)util.base;
+	CHAR_PTR ele=(CHAR_PTR)element;
 	for (i = 0; i < util.length*util.typeSize; ++i){
 		if(ele_i>0 && array[i]!=ele[ele_i]){
 			ele_i=0;
@@ -68,8 +69,8 @@ int findIndex(ArrayUtil util, void* element){
 
 void *findFirst(ArrayUtil util, MatchFunc* match, void* hint){
 	int i,j;
-	char *ele=malloc(util.typeSize);
-	char *array=(char *)util.base;
+	CHAR_PTR ele=malloc(util.typeSize);
+	CHAR_PTR array=(CHAR_PTR)util.base;
 	for(i=0;i<util.length;++i){
 		for(j=0;j<util.typeSize;++j){
 			ele[j]=array[(i*util.typeSize)+j];
@@ -83,8 +84,8 @@ void *findFirst(ArrayUtil util, MatchFunc* match, void* hint){
 
 void *findLast(ArrayUtil util, MatchFunc* match, void* hint){
 	int i,j;
-	char *ele=malloc(util.typeSize);
-	char *array=(char *)util.base;
+	CHAR_PTR ele=malloc(util.typeSize);
+	CHAR_PTR array=(CHAR_PTR)util.base;
 	for(i=(util.length-1);i>=0;--i){
 		for(j=(util.typeSize-1);j>=0;--j){
 			ele[j]=array[(i*util.typeSize)+j];
@@ -98,8 +99,8 @@ void *findLast(ArrayUtil util, MatchFunc* match, void* hint){
 
 int count(ArrayUtil util, MatchFunc* match, void* hint){
 	int i,j,count=0;
-	char *ele=malloc(util.typeSize);
-	char *array=(char *)util.base;
+	CHAR_PTR ele=malloc(util.typeSize);
+	CHAR_PTR array=(CHAR_PTR)util.base;
 	for(i=0;i<util.length;++i){
 		for(j=0;j<util.typeSize;++j){
 			ele[j]=array[(i*util.typeSize)+j];
@@ -113,8 +114,8 @@ int count(ArrayUtil util, MatchFunc* match, void* hint){
 
 int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int maxItems ){
 	int i,j,count=0;
-	char *ele=malloc(util.typeSize);
-	char *array=(char *)util.base;
+	CHAR_PTR ele=malloc(util.typeSize);
+	CHAR_PTR array=(CHAR_PTR)util.base;
 	for (i=0;i<util.length;i++){
 		if(count==maxItems){
 			return count;
@@ -132,8 +133,8 @@ int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int
 
 void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint){
 	int i;
-	char *array=(char *)source.base;
-	char *dest=(char *)destination.base;
+	CHAR_PTR array=(CHAR_PTR)source.base;
+	CHAR_PTR dest=(CHAR_PTR)destination.base;
 	for (i=0;i<source.length;i++){
 		convert(hint,&(array[i*source.typeSize]),&(dest[i*source.typeSize]));
 	}
@@ -141,7 +142,7 @@ void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hi
 
 void forEach(ArrayUtil util, OperationFunc* operation, void* hint) {
 	int i;
-	char *array=(char *)util.base;
+	CHAR_PTR array=(CHAR_PTR)util.base;
 	for(i=0;i<util.length;i++){
 		operation(hint,&(array[i*util.typeSize]));
 	}	
