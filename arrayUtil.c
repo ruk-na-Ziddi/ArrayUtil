@@ -37,14 +37,13 @@ ArrayUtil create(int typeSize, int length){
 }
 
 ArrayUtil resize(ArrayUtil util, int length){
-	ArrayUtil resized={malloc(util.typeSize*length),util.typeSize,length};
-	int i;
-	for(i=0;i<length;++i){
-		if(i>=util.length){
-			((int *)resized.base)[i]=0;
-		}else{
-			((int *)resized.base)[i]=((int *)util.base)[i];
-		}
+	ArrayUtil resized={calloc(length,util.typeSize),util.typeSize,length};
+	int i,len;
+	char *array1=(char *)util.base;
+	char *array2=(char *)resized.base;
+	len=(length<util.length)?length:util.length;
+	for(i=0;i<len*util.typeSize;++i){
+		array2[i]=array1[i];
 	}
 	return resized;
 }
