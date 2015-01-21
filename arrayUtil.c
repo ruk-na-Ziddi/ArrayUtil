@@ -25,9 +25,7 @@ int areEqual(ArrayUtil u1,ArrayUtil u2){
 		return 0;
 	}
 	for (i = 0; i < u1.length*u1.typeSize; ++i){
-		if(x[i]!=y[i]){
-			return 0;
-		}
+		if(x[i]!=y[i]){return 0;}
 	}
 	return 1;
 }

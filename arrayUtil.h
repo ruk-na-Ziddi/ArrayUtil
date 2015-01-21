@@ -1,3 +1,4 @@
+typedef char * STRING;
 typedef int (MatchFunc)(void* hint, void* item);
 typedef void (ConvertFunc)(void* hint, void* sourceItem, void* destinationItem);
 typedef void (OperationFunc)(void* hint,void* item);

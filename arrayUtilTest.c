@@ -1,4 +1,6 @@
 #define INT_SIZE sizeof(int)
+#define CHAR_SIZE sizeof(char)
+#define STRING_SIZE sizeof(STRING)
 #include <stdlib.h>
 #include "expr_assert.h"
 #include "arrayUtil.h"
@@ -6,12 +8,84 @@
 #include <stdio.h>
 #include <stddef.h>
 
-void test_areEqual_return_0_when_both_array_lenght_base_and_typesize_and_elements_are_same(){
+void test_areEqual_return_1_when_both_array_lenght_base_and_typesize_and_elements_are_same(){
 	int array1[]={1,2,3,4,5};
 	int array2[]={1,2,3,4,5};
 	ArrayUtil u1={array1,INT_SIZE,5};
 	ArrayUtil u2={array2,INT_SIZE,5};
 	assertEqual(areEqual(u1,u2), 1);
+}
+
+void test_areEqual_return_1_when_both_characetr_array_lenght_base_and_typesize_and_elements_are_same(){
+	char array1[]={'a','b','c','d','\0'};
+	char array2[]={'a','b','c','d','\0'};
+	ArrayUtil u1={array1,CHAR_SIZE,5};
+	ArrayUtil u2={array2,CHAR_SIZE,5};
+	assertEqual(areEqual(u1,u2), 1);
+}
+
+void test_areEqual_return_0_when_both_characetr_array_lenght_are_same_but_typesize_is_different(){
+	int array1[]={1,2,3,4,5};
+	char array2[]={'a','b','c','d','\0'};
+	ArrayUtil u1={array1,INT_SIZE,5};
+	ArrayUtil u2={array2,CHAR_SIZE,5};
+	assertEqual(areEqual(u1,u2), 0);
+}
+
+void test_areEqual_return_0_when_both_characetr_array_typesize_are_same_but_length_is_different(){
+	char array1[]={'a','b','c','\0'};
+	char array2[]={'a','b','c','d','\0'};
+	ArrayUtil u1={array1,INT_SIZE,4};
+	ArrayUtil u2={array2,CHAR_SIZE,5};
+	assertEqual(areEqual(u1,u2), 0);
+}
+
+void test_areEqual_return_1_for_array_of_string_if_everything_is_same(){
+	STRING array1[]={"abc","abc","abc","abc","abc"};
+	STRING array2[]={"abc","abc","abc","abc","abc"};
+	ArrayUtil u1={array1,STRING_SIZE,5};
+	ArrayUtil u2={array2,STRING_SIZE,5};
+	assertEqual(areEqual(u1,u2), 1);
+}
+
+void test_areEqual_return_0_for_array_of_string_if_lenghts_are_different(){
+	STRING array1[]={"abc","abc","abc","abc","abc"};
+	STRING array2[]={"abc","abc","abc","abc","abc"};
+	ArrayUtil u1={array1,STRING_SIZE,5};
+	ArrayUtil u2={array2,STRING_SIZE,4};
+	assertEqual(areEqual(u1,u2), 0);
+}
+
+void test_areEqual_return_1_when_length_and_typesize_are_same_and_each_ele_is_empty_string(){
+	STRING array1[]={"","","","",""};
+	STRING array2[]={"","","","",""};
+	ArrayUtil u1={array1,STRING_SIZE,5};
+	ArrayUtil u2={array2,STRING_SIZE,5};
+	assertEqual(areEqual(u1,u2), 1);
+}
+
+void test_areEqual_return_0_when_typesize_and_length_are_same_but_first_has_less_element(){
+	STRING array1[]={"","","",""};
+	STRING array2[]={"","","","",""};
+	ArrayUtil u1={array1,STRING_SIZE,5};
+	ArrayUtil u2={array2,STRING_SIZE,5};
+	assertEqual(areEqual(u1,u2), 0);
+}
+
+void test_areEqual_return_0_when_typesize_is_same_but_second_has_less_element_and_less_length(){
+	STRING array1[]={"ank","aks","ank","aks","ank"};
+	STRING array2[]={"ank","aks","ank","aks"};
+	ArrayUtil u1={array1,STRING_SIZE,5};
+	ArrayUtil u2={array2,STRING_SIZE,4};
+	assertEqual(areEqual(u1,u2), 0);
+}
+
+void test_areEqual_return_0_when_1_typesize_is_STRING_SIZE_and_2_is_INT_SIZE(){
+	STRING array1[]={"abc","abc","abc","abc","abc"};
+	int array2[]={1,2,3,4,5};
+	ArrayUtil u1={array1,STRING_SIZE,5};
+	ArrayUtil u2={array2,INT_SIZE,4};
+	assertEqual(areEqual(u1,u2), 0);
 }
 
 void test_areEqual_returns_0_when_lenght_are_not_equal(){
@@ -26,7 +100,7 @@ void test_areEqual_returns_0_when_length_is_equal_but_typeSize_is_not_equal(){
 	int array1[]={1,2,3,4,5};
 	char array2[]={'a','b','c','d','\0'};
 	ArrayUtil u1={array1,INT_SIZE,5};
-	ArrayUtil u2={array2,sizeof(char),5};
+	ArrayUtil u2={array2,CHAR_SIZE,5};
 	assertEqual(areEqual(u1,u2), 0);
 }
 
