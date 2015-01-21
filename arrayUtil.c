@@ -3,42 +3,29 @@
 #include <stdio.h>
 #include "arrayUtil.h"
 
-int areEqual(ArrayUtil a1,ArrayUtil a2){
-	int i,a2_i=0;
-	char *x=(char *)a1.base;
-	char *y=(char *)a2.base;
-	if(a1.length!=a2.length || a1.typeSize!=a2.typeSize){
+int areEqual(ArrayUtil u1,ArrayUtil u2){
+	int i;
+	char *x=(char *)u1.base;
+	char *y=(char *)u2.base;
+	if(u1.length!=u2.length || u1.typeSize!=u2.typeSize){
 		return 0;
 	}
-	for (i = 0; i < a1.length*a1.typeSize; ++i){
-		if(x[i]==y[i]){
-			++a2_i;
-			if(a2_i==a1.length*a1.typeSize){
-				return 1;
-			}
+	for (i = 0; i < u1.length*u1.typeSize; ++i){
+		if(x[i]!=y[i]){
+			return 0;
 		}
 	}
-	return 0;
+	return 1;
 }
 
 ArrayUtil create(int typeSize, int length){
-	ArrayUtil arr;
-	int i;
-	arr.base=malloc(typeSize*length);
-	arr.typeSize=typeSize;
-	arr.length=length;
-	for(i=0;i<length;++i){
-		((int *)arr.base)[i]=0;
-	}
-	return arr;
+	ArrayUtil util={calloc(length,typeSize),typeSize,length};
+	return util;
 }
 
 ArrayUtil resize(ArrayUtil util, int length){
-	ArrayUtil resized;
+	ArrayUtil resized={malloc(util.typeSize*length),util.typeSize,length};
 	int i;
-	resized.base=malloc(util.typeSize*length);
-	resized.typeSize=util.typeSize;
-	resized.length=length;
 	for(i=0;i<length;++i){
 		if(i>=util.length){
 			((int *)resized.base)[i]=0;
