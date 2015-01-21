@@ -120,6 +120,14 @@ void test_create_creates_a_given_length_array_of_3_elements_initialized_to_0_whe
 	free(util.base);
 }
 
+void test_create_creates_a_given_length_char_array_all_elements_slash_0(){
+	char array[]={'\0','\0','\0'};
+	ArrayUtil util=create(CHAR_SIZE,3);
+	ArrayUtil expected={array,CHAR_SIZE,3};
+	assert(areEqual(util,expected));
+	free(util.base);
+}
+
 void test_if_new_length_is_less_than_old_length_resize_gives_an_array_of_starting_elements_till_given_length(){
 	int array[]={1,2,3,4,5};
 	int newArray[]={1,2,3};
