@@ -21,3 +21,4 @@ int arrayEqual(void *arr1,void *arr2);
 void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint);
 void forEach(ArrayUtil util, OperationFunc* operation, void* hint);
 void* reduce(ArrayUtil util, ReducerFunc* reducer, void* hint, void* intialValue);
+void dispose(ArrayUtil util);

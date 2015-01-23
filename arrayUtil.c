@@ -154,3 +154,7 @@ void* reduce(ArrayUtil util, ReducerFunc* reducer, void* hint, void* intialValue
 	}
 	return return_value;
 }
+
+void dispose(ArrayUtil util){
+	free(util.base);
+}
