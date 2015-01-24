@@ -112,17 +112,13 @@ int count(ArrayUtil util, MatchFunc* match, void* hint){
 
 int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int maxItems ){
 	int i,j,count=0;
-	CHAR_PTR ele=malloc(util.typeSize);
 	CHAR_PTR array=(CHAR_PTR)util.base;
 	for (i=0;i<util.length;i++){
 		if(count==maxItems){
 			return count;
 		}
-		for(j=0;j<util.typeSize;++j){
-			ele[j]=array[(i*util.typeSize)+j];
-		}
-		if(match(hint,ele)){
-			memcpy(&((*destination)[count*util.typeSize]),ele,util.typeSize);
+		if(match(hint,&((array)[i*util.typeSize]))){
+			destination[count]=&((array)[i*util.typeSize]);
 			++count;
 		}
 	}
@@ -150,7 +146,7 @@ void* reduce(ArrayUtil util, ReducerFunc* reducer, void* hint, void* intialValue
 	void *return_value=intialValue;
 	int i;
 	for(i=0;i<util.length;i++){
-		return_value =  reducer(hint,&((int *)util.base)[i],intialValue);
+		return_value =  reducer(hint,return_value,&((int *)util.base)[i]);
 	}
 	return return_value;
 }
