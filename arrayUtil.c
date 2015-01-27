@@ -145,8 +145,9 @@ void forEach(ArrayUtil util, OperationFunc* operation, void* hint) {
 void* reduce(ArrayUtil util, ReducerFunc* reducer, void* hint, void* intialValue){
 	void *return_value=intialValue;
 	int i;
+	CHAR_PTR array=(CHAR_PTR)util.base;
 	for(i=0;i<util.length;i++){
-		return_value =  reducer(hint,return_value,&((int *)util.base)[i]);
+		return_value =  reducer(hint,return_value,&(array[i*util.typeSize]));
 	}
 	return return_value;
 }
