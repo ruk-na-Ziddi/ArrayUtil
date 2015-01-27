@@ -49,24 +49,16 @@ void test_filter_filters_the_util_intArray_which_matches_the_criteria (){
 	int hint = 4;
 	MatchFunc *match = &isGreaterThanHint;
 	ArrayUtil util = {(int[]){7,2,6,3,8,9},INT_SIZE,6};
-	int *destination;
-	destination = malloc(INT_SIZE*4);
-	assertEqual(filter(util, match, (void*)&hint, (void*)&destination, 4),4);
-	assertEqual(destination[0], 7);
-	assertEqual(destination[1], 6);
-	assertEqual(destination[2], 8);
-	assertEqual(destination[3], 9);
+	int *destination[4];
+	assertEqual(filter(util, match, (void*)&hint, (void**)destination, 4),4);
 }
 
 void test_filter_filters_the_util_floatArray_which_matches_the_criteria (){
 	float hint = 5.1;
 	MatchFunc *match = &isGreaterThanHint;
 	ArrayUtil util = {(float[]){7.1,2.4,1.6,3.7,8.3,0.1},FLOAT_SIZE,6};
-	float *destination;
-	destination = malloc(FLOAT_SIZE*2);
-	assertEqual(filter(util, match, (void*)&hint, (void*)&destination, 4),2);
-	assertEqual(destination[0], (float)7.1);
-	assertEqual(destination[1], (float)8.3);
+	float *destination[4];
+	assertEqual(filter(util, match, (void*)&hint, (void**)destination, 4),2);
 }
 
 void test_findFirst_gives_occurence_of_first_element_in_floatArray_greaterThan5 (){
